@@ -7,28 +7,23 @@ package org.katas.refactoring;
  * total sales tax) and prints it.
  */
 public class OrderReceipt {
-    private Order o;
+    private Order order;
 
-    public OrderReceipt(Order o) {
-        this.o = o;
+    public OrderReceipt(Order order) {
+        this.order = order;
     }
 
+    private StringBuilder output = new StringBuilder();
+
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
-
-        // print headers
         output.append("======Printing Orders======\n");
-
-        // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
-        output.append(o.getCustomerName());
-        output.append(o.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
+        getCustomerInfo();
 
         // prints lineItems
         double totSalesTx = 0d;
-        double tot = 0d;
-        for (LineItem lineItem : o.getLineItems()) {
+        double ttlAmount = 0d;
+
+        for (LineItem lineItem : order.getLineItems()) {
             output.append(lineItem.getDescription());
             output.append('\t');
             output.append(lineItem.getPrice());
@@ -43,14 +38,24 @@ public class OrderReceipt {
             totSalesTx += salesTax;
 
             // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
+            ttlAmount += lineItem.totalAmount() + salesTax;
         }
+        outputSalesTax(totSalesTx);
+        outputTotalAmmount(ttlAmount);
 
-        // prints the state tax
-        output.append("Sales Tax").append('\t').append(totSalesTx);
-
-        // print total amount
-        output.append("Total Amount").append('\t').append(tot);
         return output.toString();
+    }
+
+    private void getCustomerInfo(){
+        output.append(order.getCustomerName());
+        output.append(order.getCustomerAddress());
+    }
+
+    private void outputSalesTax(double totSalesTx){
+        output.append("Sales Tax").append('\t').append(totSalesTx);
+    }
+
+    private void outputTotalAmmount(double ttlAmount){
+        output.append("Total Amount").append('\t').append(ttlAmount);
     }
 }
