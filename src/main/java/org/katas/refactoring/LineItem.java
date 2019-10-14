@@ -5,10 +5,10 @@ public class LineItem {
     private double price;
     private int qty;
 
-    public LineItem(String desc, double p, int qty) {
+    public LineItem(String desc, double price, int qty) {
         super();
         this.desc = desc;
-        this.price = p;
+        this.price = price;
         this.qty = qty;
     }
 
