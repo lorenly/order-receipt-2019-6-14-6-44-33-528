@@ -31,7 +31,7 @@ public class OrderReceipt {
             output.append(lineItem.getQuantity()).append(TAB);
             output.append(lineItem.totalAmount()).append(NEWLINE);
 
-            double salesTax = lineItem.totalAmount() * tax;
+            double salesTax = getSalesTax(lineItem.totalAmount(), tax);
             totSalesTx += salesTax;
 
             ttlAmount += lineItem.totalAmount() + salesTax;
@@ -47,6 +47,9 @@ public class OrderReceipt {
         output.append(order.getCustomerAddress());
     }
 
+    private double getSalesTax(double totalAmount, double tax){
+        return totalAmount * tax;
+    }
     private void outputSalesTax(double totSalesTx){
         output.append("Sales Tax").append(TAB).append(totSalesTx);
     }
