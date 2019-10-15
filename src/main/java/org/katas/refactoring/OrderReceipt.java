@@ -34,7 +34,7 @@ public class OrderReceipt {
             double salesTax = getSalesTax(lineItem.totalAmount(), tax);
             totSalesTx += salesTax;
 
-            ttlAmount += lineItem.totalAmount() + salesTax;
+            ttlAmount += getTotalAmount(lineItem.totalAmount(), salesTax);
         }
         outputSalesTax(totSalesTx);
         outputTotalAmmount(ttlAmount);
@@ -49,6 +49,10 @@ public class OrderReceipt {
 
     private double getSalesTax(double totalAmount, double tax){
         return totalAmount * tax;
+    }
+
+    private double getTotalAmount(double totalAmoutn, double salesTax){
+        return totalAmoutn + salesTax;
     }
     private void outputSalesTax(double totSalesTx){
         output.append("Sales Tax").append(TAB).append(totSalesTx);
